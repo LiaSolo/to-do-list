@@ -1,0 +1,253 @@
+.container_outer {
+    box-sizing: border-box;
+    height: 229px;
+    width: 640px;
+    border: solid 2px black;
+    padding: 32px;
+    margin: 16px;
+}
+
+.cont_critical {
+    border-color: #D57575;
+    color: #D57575;
+}
+
+.cont_medium {
+    border-color:#395B64;
+    color:#395B64;
+}
+
+.cont_low {
+    border-color: #A5C9CA;
+    color: #A5C9CA;
+}
+
+.header {
+    height: 35px;
+    width: 576px;
+    display: flex;
+    gap: 16px;
+
+    font-family: 'Lora';
+    font-weight: 700;
+    font-size: 28px;
+    line-height: 33.6px;
+}
+
+.importance {
+    box-sizing: border-box;
+    height: 35px;
+    padding: 8px 16px 8px 16px;
+    font-family: 'Source Sans Pro';
+    color: white;
+    font-size: 16px;
+    font-weight: 400;
+    line-height: 19.2px;
+    gap: 8px;
+    display: flex;
+    cursor: pointer;
+}
+
+.imprt_critical {
+    background-color: #D57575;
+}
+
+.imprt_medium {
+    background-color: #395B64;
+}
+
+.imprt_low {
+    background-color: #A5C9CA;
+}
+
+.btn_save {
+    box-sizing: border-box;
+    height: 35px;
+    padding: 8px 16px 8px 16px;
+    font-family: 'Source Sans Pro';
+    color: white;
+    font-size: 16px;
+    font-weight: 400;
+    line-height: 19.2px;
+    gap: 8px;
+    background-color: #395B64;
+    cursor: pointer;
+}
+
+.select_icon {
+    height: 16px;
+    width: 16px;
+    background-color: transparent;
+    background-image: url(../../assets/angle.svg);
+    background-size: 20px;
+    background-attachment: bottom;
+}
+
+.set_name_note_box {
+    height: 35px;
+    width: 100%;
+    border: solid 1px black;
+}
+
+.body_note_box {
+    height: 114px;
+    width: 576px;
+    border: solid 1px black;
+    margin-top: 16px;
+}
+
+
+.drop_down_options {
+    font-family: 'Source Sans Pro';
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 19.2px;
+    color: black;
+    padding: 8px;
+    background-color: white;
+    cursor: pointer;
+}
+
+.drop_down_options:hover {
+    background-color: #A5C9CA;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+.select-box {
+  position: relative;
+  display: block;
+  width: 100%;
+  margin: 0 auto;
+  font-family: 'Open Sans', 'Helvetica Neue', 'Segoe UI', 'Calibri', 'Arial', sans-serif;
+  font-size: 18px;
+  color: #60666d;
+  
+  @media (min-width: 768px) {
+    width: 70%;
+  }
+  
+  @media (min-width: 992px) {
+    width: 50%;
+  }
+  
+  @media (min-width: 1200px) {
+    width: 30%;
+  }
+  
+  &__current {
+    position: relative;
+    box-shadow: 0 15px 30px -10px transparentize(#000, 0.9);
+    cursor: pointer;
+    outline: none;
+    
+    &:focus {
+      & + .select-box__list {
+        opacity: 1;
+
+        // We have to set "animation-name: none;" to make the list visible (read below how it works)
+
+        animation-name: none;
+        
+        .select-box__option {
+          cursor: pointer;
+        }
+      }
+      
+      .select-box__icon {
+        transform: translateY(-50%) rotate(180deg);
+      }
+    }
+  }
+  
+  &__icon {
+    position: absolute;
+    top: 50%;
+    right: 15px;
+    transform: translateY(-50%);
+    width: 20px;
+    opacity: 0.3;
+    transition: 0.2s ease;
+  }
+  
+  &__value {
+    display: flex;
+  }
+  
+  &__input {
+    display: none;
+    
+    &:checked + .select-box__input-text {
+      display: block;
+    }
+  }
+  
+  &__input-text {
+    display: none;
+    width: 100%;
+    margin: 0;
+    padding: 15px;
+    background-color: #fff;
+  }
+  
+  &__list {
+    position: absolute;
+    width: 100%;
+    padding: 0;
+    list-style: none;
+    opacity: 0;
+    
+    // We need to use animation with delay.
+    // Otherwise the click event will not have time to run on label, because this element disapears immediately when .select-box__current element loses the focus.
+    // This delay will not be noticed because we set "opacity" to "0".
+    // We also use "animation-fill-mode: forwards" to make the list stay hidden.
+    
+    animation-name: HideList;
+    animation-duration: 0.5s;
+    animation-delay: 0.5s;
+    animation-fill-mode: forwards;
+    animation-timing-function: step-start;
+    box-shadow: 0 15px 30px -10px transparentize(#000, 0.9);
+  }
+  
+  &__option {
+    display: block;
+    padding: 15px;
+    background-color: #fff;
+    
+    &:hover,
+    &:focus {
+      color: #546c84;
+      background-color: #fbfbfb;
+    }
+  }
+}
+
+@keyframes HideList {
+  from {
+    transform: scaleY(1);
+  }
+  to {
+    transform: scaleY(0);
+  }
+}
