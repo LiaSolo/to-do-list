@@ -1,12 +1,11 @@
 
 
-.container_outer {
+.Note {
     box-sizing: border-box;
     height: 229px;
     width: 576px;
     border: solid 2px black;
     padding: 32px;
-    margin: 16px;
     position: relative;
 }
 
@@ -14,7 +13,7 @@
   opacity: 50%;
 }
 
-.container_done_inner {
+.containerCompletedInner {
   box-sizing: border-box;
   height: 35px;
   border: solid 2px black;
@@ -26,19 +25,20 @@
   line-height: 19.2px;
   display: flex;
   align-items: center;
+  cursor: context-menu;
 }
 
-.cont_CRITICAL {
+.borderCRITICAL {
     border-color: #D57575;
     color: #D57575;
 }
 
-.cont_MEDIUM {
+.borderMEDIUM {
     border-color:#395B64;
     color:#395B64;
 }
 
-.cont_LOW {
+.borderLOW {
     border-color: #A5C9CA;
     color: #A5C9CA;
 }
@@ -56,7 +56,7 @@
     z-index: 100;
 }
 
-.buttons {
+.buttons, .notButtons {
   box-sizing: border-box;
   height: 35px;
   padding: 8px 12px;
@@ -68,25 +68,18 @@
   gap: 8px;
   display: flex;
   align-items: center;
-  cursor: pointer;
+  
   background-color: #395B64;
 }
 
-.CRITICAL {
-    background-color: #D57575;
+.buttons {
+    cursor: pointer;
 }
 
-.MEDIUM {
-    background-color: #395B64;
+.notButtons {
+    cursor: context-menu;
 }
 
-.LOW {
-    background-color: #A5C9CA;
-}
-
-.COMPLETE {
-  background-color: #73A584;
-}
 
 .saved {
     display: flex;
@@ -97,6 +90,8 @@
     height: 35px;
     width: 100%;
     border: solid 1px black;
+    display: flex;
+    align-items: center;
 }
 
 .body_note_box {
@@ -123,42 +118,32 @@
     background-color: #A5C9CA;
 }
 
-.btn_icons {
+.btnIcons {
     height: 16px;
     width: 16px;    
     background-repeat: no-repeat;
     background-size: 16px;
     background-position: center;
-    cursor: pointer;
 }
 
-.icon_select {
+.iconSelect {
     background-image: url(../../assets/angle.svg);
 }
 
-.icon_done {  
-    background-image: url(../../assets/done.svg);
-}
-
-.big_icon_done {
+.bigIconDone {
     height: 35px;
     width: 35px;    
     background-repeat: no-repeat;
     background-size: 24px;
     background-position: center;
-    cursor: pointer;
     background-image: url(../../assets/done.svg);
 }
 
-.icon_delete {
-    background-image: url(../../assets/delete.svg);
+.containerCompletedOuter {
+    display: flex;
 }
 
-.icon_edit {
-    background-image: url(../../assets/edit.svg);
-}
-
-.menu_icons {
+.menuIcons {
     height: 24px;
     width: 24px;
     background-repeat: no-repeat;
@@ -178,29 +163,14 @@
     background-image: url(../../assets/close.svg);
 }
 
-.menu {
-  box-sizing: border-box;
-  height: 226px;
-  width: 573px;
-  padding: 32px;
-  margin: 16px;
-  position: absolute;
-  top: -16px;
-  left: -16px;
-  background: rgba(251, 253, 252, 0.75);
-  z-index: 1;
-  display: flex;
-  gap: 16px;
-  backdrop-filter: blur(1px);
-  justify-content: center;
-  align-items: center;
+.CRITICAL {
+    background-color: #D57575;
 }
 
-.menu_btns_container {
-  height: 35px;
-  width: 334px;
-  display: flex;
-  gap: 16px;
-  position: absolute;
-  
+.MEDIUM {
+    background-color: #395B64;
+}
+
+.LOW {
+    background-color: #A5C9CA;
 }

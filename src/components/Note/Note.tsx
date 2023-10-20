@@ -1,22 +1,43 @@
 import { useState } from 'react'
-import styles from './Note.module.scss'
-import Menu from './Menu'
+import { TodoItem } from '../../TodoItem'
+import { FC } from 'react'
+import classNames from 'classnames'
 import "@fontsource/source-sans-pro"
 import "@fontsource/lora/700.css"
+import styles from './Note.module.scss'
+import Menu from '../Menu/Menu'
+import { useTodos } from '../../Store'
 
 
-const Note= (props: any) => { //{ level }: { level: string }
+interface Props {
+    key: string;
+    item: TodoItem;
+    //isEditingDisabled: boolean;
+    //onEdit: () => void;
+    //onSave: () => void;
+    //onDelete: () => void;
+}
 
-    const [isSaved, setSaved] = useState(false);
+const Note: FC<Props> = ({ item }) => { //{ level }: { level: string }
+    const saveChanges = useTodos(state => state.saveChanges)
+    const setEditingDisabled = useTodos(state => state.setEditingDisabled)
+    const setAddingDisabled = useTodos(state => state.setAddingDisabled)
+    const menuIconDots = classNames(styles.menuIcons, styles.dots)
+    const menuIconClose = classNames(styles.menuIcons, styles.close)
+    const selectIcon = classNames(styles.btnIcons, styles.iconSelect)
+
     const handleSaveClick = () => {
-        setSaved(!isSaved);
+        const savedItem = {
+            id: item.id,
+            level: selectedOption,
+            completed: item.completed,
+            isSaved: true
+        }
+        saveChanges(savedItem)
+        setEditingDisabled(false)
+        setAddingDisabled(false)
     }
 
-    const [isComplete, setComplete] = useState(false);
-    const handleCompleteClick = () => {
-        setComplete(!isComplete);
-        setShowMenu(false);
-    }
 
     const [isShowMenu, setShowMenu] = useState(false);
     const handleMenuClick = () => {
@@ -42,7 +63,7 @@ const Note= (props: any) => { //{ level }: { level: string }
         setOption('CRITICAL');
     }
 
-    function styleOptions(lvl: string) {
+    const styleOptions = (lvl: string) => {
         return(
             {backgroundColor: selectedOption === lvl ? '#395B64':'',
             color: selectedOption === lvl ? 'white':'black'}
@@ -50,39 +71,29 @@ const Note= (props: any) => { //{ level }: { level: string }
     }
 
     return (
-        <>
-        <div className={`${styles.container_outer} 
-            ${isSaved ? styles[`cont_${selectedOption}`] : ''}
-            ${isComplete ? styles.done : ''}`}>
+        <div className={classNames(styles.Note, 
+            item.isSaved ? styles[`border${selectedOption}`] : '',
+            item.completed ? styles.done : '')}>
             {isShowMenu ?
                 <Menu 
-                    handleSaveClick={handleSaveClick}
-                    handleMenuClick={handleMenuClick}
-                    handleCompleteClick={handleCompleteClick}
-                    handleServiceRemove={props.handleServiceRemove}
-                    index={props.index} 
+                    item={item} 
+                    setShowMenu={setShowMenu}
                 /> : ''
             }
-            {isSaved ?
-                <>
-                    {isShowMenu ?
-                        <div className={`${styles.menu_icons} ${styles.close}`} onClick={handleMenuClick}></div> :
-                        <div className={`${styles.menu_icons} ${styles.dots}`} onClick={handleMenuClick}></div>
-                    }
-                </> : ''
-            }
-            
-            
+            {item.isSaved && !item.completed ?
+                <div className={isShowMenu ? menuIconClose : menuIconDots} onClick={handleMenuClick}></div>
+                : ''
+            } 
             <div className={styles.header}>        
                 <div>                  
-                    {isSaved ?
+                    {item.isSaved ?
                         <>
-                            {isComplete ?
-                                <div style={{display: 'flex'}}>
-                                    <div className={`${styles.big_icon_done} ${styles[`${selectedOption}`]}`}></div>
-                                    <div className={`${styles.container_done_inner} ${styles[`cont_${selectedOption}`]}`}>{selectedOption}</div>
+                            {item.completed ?
+                                <div className={styles.containerCompletedOuter}>
+                                    <div className={classNames(styles.bigIconDone, styles[`${selectedOption}`])}></div>
+                                    <div className={classNames(styles.containerCompletedInner, styles[`border${selectedOption}`])}>{selectedOption}</div>
                                 </div>:
-                                <div className={`${styles.buttons} ${isSaved ? styles[`${selectedOption}`] : ''}`}>              
+                                <div className={classNames(styles.notButtons, item.isSaved ? styles[`${selectedOption}`] : '')}>              
                                     {selectedOption}
                                 </div>
                             }
@@ -92,7 +103,7 @@ const Note= (props: any) => { //{ level }: { level: string }
                             <div>
                                 <div className={styles.buttons} onClick={handleOptionsClick}>
                                     {selectedOption}
-                                    <div className={`${styles.btn_icons} ${styles.icon_select}`}></div>    
+                                    <div className={selectIcon}></div>    
                                 </div>
                                     {isShowOptions?
                                         <div>
@@ -114,12 +125,10 @@ const Note= (props: any) => { //{ level }: { level: string }
                     
                                     
                 </div>           
-                <input className={styles.set_name_note_box}></input>
+                <div className={styles.set_name_note_box}>{item.level}</div>
             </div>
             <div className={styles.body_note_box}></div>
         </div>
-
-        </>
     );
 } 
 

@@ -1,0 +1,41 @@
+.Menu {
+    box-sizing: border-box;
+    height: 226px;
+    width: 573px;
+    padding: 32px;
+    margin: 16px;
+    position: absolute;
+    top: -16px;
+    left: -16px;
+    background: rgba(251, 253, 252, 0.75);
+    z-index: 1;
+    display: flex;
+    gap: 16px;
+    backdrop-filter: blur(1px);
+    justify-content: center;
+    align-items: center;
+}
+  
+.btnsContainer {
+    height: 35px;
+    width: 334px;
+    display: flex;
+    gap: 16px;
+    position: absolute;
+}
+
+.iconDelete {
+    background-image: url(../../assets/delete.svg);
+}
+
+.iconEdit {
+    background-image: url(../../assets/edit.svg);
+}
+
+.iconComplete {  
+    background-image: url(../../assets/done.svg);
+}
+
+.COMPLETE {
+    background-color: #73A584;
+}
