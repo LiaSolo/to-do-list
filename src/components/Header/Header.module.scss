@@ -1,0 +1,49 @@
+
+
+.header {
+    height: 67px;
+    box-sizing: border-box;
+    padding: 16px 32px 16px 32px;
+    display: flex;
+}
+
+.header .left {
+    height: 35px;
+    display: flex;
+}
+
+.header span {
+    margin-top: 5px;
+    height: 25px;
+    font-family: 'Lora';
+    font-weight: 700;
+    font-size: 21px;
+    line-height: 25.2px;
+    cursor: context-menu;
+}
+
+.searchBox {
+    height: 35px;
+    width: 221px;
+    border: solid 1px black;
+    box-sizing: border-box;
+    padding: 8px;
+    margin-right: 8px;
+    margin-left: 32px;
+}
+
+.btnAddNote {
+    height: 35px;
+    width: 35px;
+    background-color: #395B64;
+    background-image: url(../../assets/add.svg);
+    background-repeat: no-repeat;
+    background-size: 24px;
+    background-position: center;
+    cursor: pointer;
+}
+
+.disabled {
+    background-color: #A5C9CA;
+    cursor: default;
+}

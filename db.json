@@ -1,15 +1,17 @@
 {
     "todos": [
       {
-        "id": "1",
+        "id": 1,
         "header": "Покушать",
         "text": "Хочу вкусно покушать",
+        "level": "LOW",
         "completed": true
       },
       {
-        "id": "2",
+        "id": 2,
         "header": "Формалки лекция",
         "text": "Списать к чертям собачьим",
+        "level": "CRITICAL",
         "completed": false
       }
     ]
