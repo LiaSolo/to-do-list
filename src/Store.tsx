@@ -6,9 +6,8 @@ interface Todos {
     todos: TodoItem[],
     isAddingDisabled: boolean,
     setAddingDisabled: (newValue: boolean) => void,
-    isEditingDisabled: boolean,
-    setEditingDisabled: (newValue: boolean) => void,
-    createTodo: () => void,
+    createEmptyTodo: () => void,
+    addTodo: (newItem: TodoItem) => void,
     saveChanges: (changedTodo: TodoItem) => void,
     deleteTodo: (todo: TodoItem) => void
 }
@@ -19,25 +18,23 @@ export const useTodos = create<Todos>()(set => ({
             id: '1',
             level: 'MEDIUM',
             completed: false,
-            isSaved: true
+            state: 'default'
         }],
     isAddingDisabled: false,
     setAddingDisabled: (newValue: boolean) => set(() => {
         return {
             isAddingDisabled: newValue
     }}),
-    isEditingDisabled: false,
-    setEditingDisabled: (newValue: boolean) => set(() => {
-        return {
-            isEditingDisabled: newValue
-    }}),
-    createTodo: () => set(state => {
+    createEmptyTodo: () => set(state => {
         
-        const newTodo = {id: nanoid(), level: 'MEDIUM', completed: false, isSaved: false}
+        const newTodo = {id: nanoid(), level: 'Medium', completed: false, state: 'create'}
         return {
             todos: [newTodo, ...state.todos],
-            isEditingDisabled: true,
             isAddingDisabled: true
+    }}),
+    addTodo: (newItem: TodoItem) => set(state => {
+        return {
+            // отправка на сервер
     }}),
     saveChanges: (changedTodo: TodoItem) => set(state => {
         const oldTodo = state.todos.filter(item => item.id === changedTodo.id)[0]

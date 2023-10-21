@@ -1,5 +1,4 @@
 import menuStyles from './Menu.module.scss'
-import noteStyles from '../Note/Note.module.scss'
 import classNames from 'classnames'
 import { FC } from 'react'
 import { TodoItem } from '../../TodoItem'
@@ -8,32 +7,24 @@ import { useTodos } from '../../Store'
 interface Props {
     item: TodoItem;
     setShowMenu: (newValue: boolean) => void;
-    //isEditingDisabled: boolean;
-    //onEdit: () => void;
-    //onSave: () => void;
-    //onDelete: () => void;
 }
 
 const Menu: FC<Props> = ({ item, setShowMenu }) => {
     const saveChanges = useTodos(state => state.saveChanges)
     const deleteTodo = useTodos(state => state.deleteTodo)
-    const setEditingDisabled = useTodos(state => state.setEditingDisabled)
-    const setAddingDisabled = useTodos(state => state.setAddingDisabled)
-    const isEditingDisabled = useTodos(state => state.isEditingDisabled)
-    const btnIconComplete = classNames(noteStyles.btnIcons, menuStyles.iconComplete)
-    const btnIconEdit = classNames(noteStyles.btnIcons, menuStyles.iconEdit, menuStyles.btnEditDisable)
-    const btnIconDelete = classNames(noteStyles.btnIcons, menuStyles.iconDelete)
-    const btnCompleteClass = classNames(noteStyles.buttons, menuStyles.COMPLETE)
-    const btnEditClass = classNames(noteStyles.buttons, noteStyles.MEDIUM)
-    const btnEditDisable = classNames(noteStyles.notButtons, noteStyles.LOW)
-    const btnDeleteClass = classNames(noteStyles.buttons, noteStyles.CRITICAL)
+    const btnIconComplete = classNames(menuStyles.btnIcons, menuStyles.iconComplete)
+    const btnIconEdit = classNames(menuStyles.btnIcons, menuStyles.iconEdit)
+    const btnIconDelete = classNames(menuStyles.btnIcons, menuStyles.iconDelete)
+    const btnCompleteClass = classNames(menuStyles.buttons, menuStyles.btnComplete)
+    const btnEditClass = classNames(menuStyles.buttons, menuStyles.btnEdit)
+    const btnDeleteClass = classNames(menuStyles.buttons, menuStyles.btnDelete)
 
     const handleCompleteClick = () => {
         const completedItem = {
             id: item.id,
             level: item.level,
             completed: true,
-            isSaved: item.isSaved
+            state: 'default'
         }
         setShowMenu(false)
         saveChanges(completedItem)
@@ -44,12 +35,10 @@ const Menu: FC<Props> = ({ item, setShowMenu }) => {
             id: item.id,
             level: item.level,
             completed: item.completed,
-            isSaved: false
+            state: 'edit'
         }
         setShowMenu(false)
         saveChanges(unsavedItem)
-        setEditingDisabled(true)
-        setAddingDisabled(true)
     }
 
     const handleDeleteClick = () => {
@@ -65,16 +54,12 @@ const Menu: FC<Props> = ({ item, setShowMenu }) => {
                     <div className={btnIconComplete}></div>
                     COMPLETE
                 </div>
-                {!isEditingDisabled ? 
+
                 <div className={btnEditClass}
                 onClick={handleEditClick}>
                     <div className={btnIconEdit}></div>
                     EDIT
-                </div>:
-                <div className={btnEditDisable}>
-                    <div className={btnIconEdit}></div>
-                    EDIT
-                </div>}
+                </div>
                 
                 <div className={btnDeleteClass}
                 onClick={handleDeleteClick}>

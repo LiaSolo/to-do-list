@@ -2,8 +2,7 @@ import { useState } from 'react'
 import { TodoItem } from '../../TodoItem'
 import { FC } from 'react'
 import classNames from 'classnames'
-import "@fontsource/source-sans-pro"
-import "@fontsource/lora/700.css"
+
 import styles from './Note.module.scss'
 import Menu from '../Menu/Menu'
 import { useTodos } from '../../Store'
@@ -12,32 +11,36 @@ import { useTodos } from '../../Store'
 interface Props {
     key: string;
     item: TodoItem;
-    //isEditingDisabled: boolean;
-    //onEdit: () => void;
-    //onSave: () => void;
-    //onDelete: () => void;
 }
 
-const Note: FC<Props> = ({ item }) => { //{ level }: { level: string }
+const Note: FC<Props> = ({ item }) => {
     const saveChanges = useTodos(state => state.saveChanges)
-    const setEditingDisabled = useTodos(state => state.setEditingDisabled)
+    const addTodo = useTodos(state => state.addTodo)
     const setAddingDisabled = useTodos(state => state.setAddingDisabled)
     const menuIconDots = classNames(styles.menuIcons, styles.dots)
     const menuIconClose = classNames(styles.menuIcons, styles.close)
     const selectIcon = classNames(styles.btnIcons, styles.iconSelect)
+    const titleNoteBoxSaved = classNames(styles.titleNoteBox, styles.noBorder)
+    const bodyNoteBoxSaved = classNames(styles.bodyNoteBox, styles.noBorder)
+    const isSaved = item.state === 'default'? true : false
 
     const handleSaveClick = () => {
         const savedItem = {
             id: item.id,
             level: selectedOption,
-            completed: item.completed,
-            isSaved: true
+            completed: false,
+            state: 'default'
         }
-        saveChanges(savedItem)
-        setEditingDisabled(false)
-        setAddingDisabled(false)
+        if (savedItem.state === 'create') {
+            addTodo(savedItem)
+        } 
+        else {
+            saveChanges(savedItem)
+            setAddingDisabled(false)
+        }
+        
+        
     }
-
 
     const [isShowMenu, setShowMenu] = useState(false);
     const handleMenuClick = () => {
@@ -72,7 +75,7 @@ const Note: FC<Props> = ({ item }) => { //{ level }: { level: string }
 
     return (
         <div className={classNames(styles.Note, 
-            item.isSaved ? styles[`border${selectedOption}`] : '',
+            isSaved ? styles[`border${selectedOption}`] : '',
             item.completed ? styles.done : '')}>
             {isShowMenu ?
                 <Menu 
@@ -80,20 +83,20 @@ const Note: FC<Props> = ({ item }) => { //{ level }: { level: string }
                     setShowMenu={setShowMenu}
                 /> : ''
             }
-            {item.isSaved && !item.completed ?
+            {isSaved && !item.completed ?
                 <div className={isShowMenu ? menuIconClose : menuIconDots} onClick={handleMenuClick}></div>
                 : ''
             } 
             <div className={styles.header}>        
                 <div>                  
-                    {item.isSaved ?
+                    {isSaved ?
                         <>
                             {item.completed ?
                                 <div className={styles.containerCompletedOuter}>
                                     <div className={classNames(styles.bigIconDone, styles[`${selectedOption}`])}></div>
                                     <div className={classNames(styles.containerCompletedInner, styles[`border${selectedOption}`])}>{selectedOption}</div>
                                 </div>:
-                                <div className={classNames(styles.notButtons, item.isSaved ? styles[`${selectedOption}`] : '')}>              
+                                <div className={classNames(styles.notButtons, isSaved ? styles[`${selectedOption}`] : '')}>              
                                     {selectedOption}
                                 </div>
                             }
@@ -121,13 +124,30 @@ const Note: FC<Props> = ({ item }) => { //{ level }: { level: string }
                             </div>
                             
                         </div>
-                    }
-                    
-                                    
-                </div>           
-                <div className={styles.set_name_note_box}>{item.level}</div>
+                    }                              
+                </div>
+
+                <div className={isSaved ? titleNoteBoxSaved : styles.titleNoteBox}>
+                    <input 
+                        type='text'
+                        maxLength={30}
+                        placeholder='Title'
+                        disabled={isSaved}
+                        className={styles.inputTitle}>
+                         
+                    </input>
+                </div>
+                          
             </div>
-            <div className={styles.body_note_box}></div>
+
+            <div className={isSaved ? bodyNoteBoxSaved : styles.bodyNoteBox}>
+                <textarea
+                    placeholder='Body'
+                    className={styles.textareaBody}
+                    disabled={isSaved}>
+                </textarea>
+            </div>
+
         </div>
     );
 } 
