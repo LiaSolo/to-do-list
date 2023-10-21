@@ -4,23 +4,29 @@ import classNames from 'classnames'
 import { useTodos } from '../../Store';
 
 const Header: FC = () => {
-    const createTodo = useTodos(s => s.createTodo)
+    const createEmptyTodo = useTodos(s => s.createEmptyTodo)
     const isAddingDisabled = useTodos(s => s.isAddingDisabled)
     const btnAddNoteDisable = classNames(styles.btnAddNote, styles.disabled)
     const handleAddNoteClick = () => {
-        createTodo()
+        createEmptyTodo()
     }
     return (
-        <div className={styles.header}>
-        <div className={styles.left}>
-          <span>Yet Another Todo List</span>
-          <input className={styles.searchBox} value='123'></input>
+        <div className={styles.Header}>
+          <text>Yet Another Todo List</text>
+          <form  action='' method='get'>
+            <input 
+              type='search'
+              placeholder='Search me Daddy...'
+              disabled={isAddingDisabled}
+              className={styles.searchBox}>
+          </input>
+          </form>
+          
           {isAddingDisabled ? 
             <div className={btnAddNoteDisable}></div> : 
             <div className={styles.btnAddNote} onClick={handleAddNoteClick}></div>
           }
         </div>
-      </div>
     )
 }
 

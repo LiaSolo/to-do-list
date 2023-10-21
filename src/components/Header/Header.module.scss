@@ -1,20 +1,21 @@
 
 
-.header {
+.Header {
     height: 67px;
     box-sizing: border-box;
     padding: 16px 32px 16px 32px;
     display: flex;
+    position: sticky;
+    top: 0;
+    background-color:pink;
+    width: 100vw;
+    z-index: 10;
 }
 
-.header .left {
-    height: 35px;
-    display: flex;
-}
-
-.header span {
+.Header text {
     margin-top: 5px;
     height: 25px;
+    color: black;
     font-family: 'Lora';
     font-weight: 700;
     font-size: 21px;
@@ -30,7 +31,18 @@
     padding: 8px;
     margin-right: 8px;
     margin-left: 32px;
+    font-family: 'Source Sans Pro';
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 19.2px;
+    outline: none;
+    background-color: white;
 }
+
+.searchBox:focus {
+    background-color:#A5C9CA ;
+}
+
 
 .btnAddNote {
     height: 35px;
