@@ -1,18 +1,17 @@
 import styles from './Header.module.scss'
 import { FC } from 'react'
-import classNames from 'classnames'
 import { useTodos } from '../../Store';
+import Buttons from '../Buttons/Buttons';
 
 const Header: FC = () => {
     const createEmptyTodo = useTodos(s => s.createEmptyTodo)
     const isAddingDisabled = useTodos(s => s.isAddingDisabled)
-    const btnAddNoteDisable = classNames(styles.btnAddNote, styles.disabled)
     const handleAddNoteClick = () => {
         createEmptyTodo()
     }
     return (
         <div className={styles.Header}>
-          <text>Yet Another Todo List</text>
+          <span>Yet Another Todo List</span>
           <form  action='' method='get'>
             <input 
               type='search'
@@ -22,10 +21,17 @@ const Header: FC = () => {
           </input>
           </form>
           
-          {isAddingDisabled ? 
-            <div className={btnAddNoteDisable}></div> : 
-            <div className={styles.btnAddNote} onClick={handleAddNoteClick}></div>
-          }
+          <Buttons 
+            isDisabled={isAddingDisabled}
+            hasPadding='0px'
+            btnWidth='35px' 
+            hasIcon={true} 
+            icon='add' 
+            iconSize='24px' 
+            text='' 
+            btnColor='#395B64'
+            onClick={handleAddNoteClick}
+          />
         </div>
     )
 }

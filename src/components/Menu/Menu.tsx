@@ -1,8 +1,8 @@
 import menuStyles from './Menu.module.scss'
-import classNames from 'classnames'
 import { FC } from 'react'
 import { TodoItem } from '../../TodoItem'
 import { useTodos } from '../../Store'
+import Buttons from '../Buttons/Buttons'
 
 interface Props {
     item: TodoItem;
@@ -12,18 +12,14 @@ interface Props {
 const Menu: FC<Props> = ({ item, setShowMenu }) => {
     const saveChanges = useTodos(state => state.saveChanges)
     const deleteTodo = useTodos(state => state.deleteTodo)
-    const btnIconComplete = classNames(menuStyles.btnIcons, menuStyles.iconComplete)
-    const btnIconEdit = classNames(menuStyles.btnIcons, menuStyles.iconEdit)
-    const btnIconDelete = classNames(menuStyles.btnIcons, menuStyles.iconDelete)
-    const btnCompleteClass = classNames(menuStyles.buttons, menuStyles.btnComplete)
-    const btnEditClass = classNames(menuStyles.buttons, menuStyles.btnEdit)
-    const btnDeleteClass = classNames(menuStyles.buttons, menuStyles.btnDelete)
 
     const handleCompleteClick = () => {
         const completedItem = {
             id: item.id,
             level: item.level,
             completed: true,
+            title: item.title,
+            body: item.body,
             state: 'default'
         }
         setShowMenu(false)
@@ -35,6 +31,8 @@ const Menu: FC<Props> = ({ item, setShowMenu }) => {
             id: item.id,
             level: item.level,
             completed: item.completed,
+            title: item.title,
+            body: item.body,
             state: 'edit'
         }
         setShowMenu(false)
@@ -49,23 +47,30 @@ const Menu: FC<Props> = ({ item, setShowMenu }) => {
     return(
         <div className={menuStyles.Menu}>
             <div className={menuStyles.btnsContainer}>
-                <div className={btnCompleteClass}
-                onClick={handleCompleteClick}>
-                    <div className={btnIconComplete}></div>
-                    COMPLETE
-                </div>
-
-                <div className={btnEditClass}
-                onClick={handleEditClick}>
-                    <div className={btnIconEdit}></div>
-                    EDIT
-                </div>
-                
-                <div className={btnDeleteClass}
-                onClick={handleDeleteClick}>
-                    <div className={btnIconDelete}></div>
-                    DELETE
-                </div>
+                <Buttons 
+                    btnColor='#73A584' 
+                    hasIcon={true} 
+                    icon='done'
+                    iconSize='16px' 
+                    text='COMPLETE'
+                    onClick={handleCompleteClick}
+                />
+                <Buttons 
+                    btnColor='#395B64' 
+                    hasIcon={true} 
+                    icon='edit'
+                    iconSize='16px' 
+                    text='EDIT'
+                    onClick={handleEditClick}
+                />
+                <Buttons 
+                    btnColor='#D57575' 
+                    hasIcon={true} 
+                    icon='delete'
+                    iconSize='16px' 
+                    text='DELETE'
+                    onClick={handleDeleteClick}
+                />
             </div>
             
         </div>
