@@ -1,0 +1,55 @@
+
+
+.Level {
+    box-sizing: border-box;
+    height: 35px;
+    padding: 8px 12px;
+    font-family: 'Source Sans Pro';
+    color: white;
+    font-size: 16px;
+    font-weight: 400;
+    line-height: 19.2px;
+    display: flex;
+    align-items: center;
+    cursor: context-menu;
+}
+
+.completed {
+    display: flex;
+}
+
+.borderCRITICAL {
+    border: solid 2px #D57575;
+    color: #D57575;
+}
+  
+.borderMEDIUM {
+    border: solid 2px #395B64;
+    color:#395B64;
+}
+  
+.borderLOW {
+    border: solid 2px #A5C9CA;
+    color: #A5C9CA;
+}
+
+.iconDone {
+    height: 35px;
+    width: 35px;    
+    background-repeat: no-repeat;
+    background-size: 24px;
+    background-position: center;
+    background-image: url(../../assets/done.svg);
+}
+
+.CRITICAL {
+    background-color: #D57575;
+}
+
+.MEDIUM {
+    background-color: #395B64;
+}
+
+.LOW {
+    background-color: #A5C9CA;
+}

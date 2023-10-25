@@ -9,23 +9,8 @@
     position: relative;
 }
 
-.done {
+.completed {
   opacity: 50%;
-}
-
-.containerCompletedInner {
-  box-sizing: border-box;
-  height: 35px;
-  border: solid 2px black;
-  padding: 8px 16px;
-  font-family: 'Source Sans Pro';
-  color: white;
-  font-size: 16px;
-  font-weight: 400;
-  line-height: 19.2px;
-  display: flex;
-  align-items: center;
-  cursor: context-menu;
 }
 
 .borderCRITICAL {
@@ -43,45 +28,29 @@
     color: #A5C9CA;
 }
 
-.header {
-    height: 35px;
-    width: 512px;
-    display: flex;
-    gap: 16px;
-
-    font-family: 'Lora';
-    font-weight: 700;
-    font-size: 28px;
-    line-height: 33.6px;
-    z-index: 100;
-}
-
-.buttons, .notButtons {
-  box-sizing: border-box;
-  height: 35px;
-  padding: 8px 12px;
-  font-family: 'Source Sans Pro';
-  color: white;
-  font-size: 16px;
-  font-weight: 400;
-  line-height: 19.2px;
-  gap: 8px;
-  display: flex;
-  align-items: center;
-  
-  background-color: #395B64;
-}
-
-.buttons {
+.menuIcons {
+    height: 24px;
+    width: 24px;
+    background-repeat: no-repeat;
+    background-position: center;
+    position: absolute;
+    top: 12px;
+    right: 12px;
+    z-index: 2;
     cursor: pointer;
 }
 
-.notButtons {
-    cursor: context-menu;
+.dots {
+    background-image: url(../../assets/dots.svg);
 }
 
+.close {
+    background-image: url(../../assets/close.svg);
+}
 
-.saved {
+.header {
+    height: 35px;
+    width: 512px;
     display: flex;
     gap: 16px;
 }
@@ -107,79 +76,7 @@
     border: none;
 }
 
-.drop_down_options {
-    font-family: 'Source Sans Pro';
-    font-weight: 400;
-    font-size: 16px;
-    line-height: 19.2px;
-    color: black;
-    padding: 8px;
-    background-color: white;
-    cursor: pointer;
-}
-
-.drop_down_options:hover {
-    background-color: #A5C9CA;
-}
-
-.btnIcons {
-    height: 16px;
-    width: 16px;    
-    background-repeat: no-repeat;
-    background-size: 16px;
-    background-position: center;
-}
-
-.iconSelect {
-    background-image: url(../../assets/angle.svg);
-}
-
-.bigIconDone {
-    height: 35px;
-    width: 35px;    
-    background-repeat: no-repeat;
-    background-size: 24px;
-    background-position: center;
-    background-image: url(../../assets/done.svg);
-}
-
-.containerCompletedOuter {
-    display: flex;
-}
-
-.menuIcons {
-    height: 24px;
-    width: 24px;
-    background-repeat: no-repeat;
-    background-position: center;
-    position: absolute;
-    top: 12px;
-    right: 12px;
-    z-index: 2;
-    cursor: pointer;
-}
-
-.dots {
-    background-image: url(../../assets/dots.svg);
-}
-
-.close {
-    background-image: url(../../assets/close.svg);
-}
-
-.CRITICAL {
-    background-color: #D57575;
-}
-
-.MEDIUM {
-    background-color: #395B64;
-}
-
-.LOW {
-    background-color: #A5C9CA;
-}
-
-textarea, .titleNoteBox input {
+textarea, input {
     border: none;
     font-family: 'Source Sans Pro';
     background-color: transparent;
@@ -187,6 +84,18 @@ textarea, .titleNoteBox input {
     font-size: 16px;
     font-weight: 400;
     line-height: 19.2px;
+}
+
+textarea {
+    width: calc(100% - 4px);
+    height: calc(100% - 4px);
+    resize: none;
+    overflow: hidden;   
+}
+
+input {
+    width: 100%;
+    height: 33px;
 }
 
 .noBorder textarea {
@@ -197,31 +106,28 @@ textarea, .titleNoteBox input {
     border: none;
     font-family: 'Lora';
     background-color: transparent;
-    color:#395B64;
     font-size: 28px;
     font-weight: 700;
     line-height: 33.6px;
-}
-
-textarea {
-    width: calc(100% - 4px);
-    height: calc(100% - 4px);
-    resize: none;
-    overflow: hidden;    
-}
-
-input {
-    width: 100%;
-    height: 33px;
 }
 
 input:focus::placeholder, textarea:focus::placeholder {
     color: transparent;
 }
 
-
 .inputTitle:focus, .textareaBody:focus {
     background-color:#A5C9CA ;
     outline: none;
-    
+}
+
+.textCRITICAL input {
+    color: #D57575
+}
+
+.textMEDIUM input {
+    color: #395B64
+}
+
+.textLOW input {
+    color: #A5C9CA
 }

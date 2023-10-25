@@ -1,0 +1,53 @@
+
+
+.SelectLevels {
+    font-family: 'Source Sans Pro';
+    color: white;
+    font-size: 16px;
+    font-weight: 400;
+    line-height: 19.2px;
+}
+
+
+.dropDown {
+    box-sizing: border-box;
+    height: 35px;
+    width: 109px;
+    padding: 8px 12px;   
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    cursor: pointer;
+    background-color: #395B64;
+}
+
+.dropDown:hover {
+    outline:  black solid 1px;
+}
+
+.dropDownOptionsContainer {
+    border: black solid 1px;
+    margin-top: 8px;
+    z-index: 100;
+    position: relative;
+    cursor: pointer;
+}
+
+.dropDownOptions {
+    color: black;
+    padding: 8px;
+    background-color: white;   
+}
+
+.dropDownOptions:hover {
+    background-color: #A5C9CA;
+}
+
+.iconSelect {
+    height: 16px;
+    width: 16px;    
+    background-repeat: no-repeat;
+    background-size: 16px;
+    background-position: center;
+    background-image: url(../../assets/angle.svg);
+}

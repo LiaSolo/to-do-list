@@ -1,6 +1,7 @@
 import { create } from 'zustand'
 import { nanoid } from 'nanoid'
 import { TodoItem } from './TodoItem'
+import { compareNotes } from './compareNotes'
 
 interface Todos {
     todos: TodoItem[],
@@ -18,6 +19,8 @@ export const useTodos = create<Todos>()(set => ({
             id: '1',
             level: 'MEDIUM',
             completed: false,
+            title: 'Title123',
+            body: 'Body123',
             state: 'default'
         }],
     isAddingDisabled: false,
@@ -27,7 +30,8 @@ export const useTodos = create<Todos>()(set => ({
     }}),
     createEmptyTodo: () => set(state => {
         
-        const newTodo = {id: nanoid(), level: 'Medium', completed: false, state: 'create'}
+        const newTodo = {id: nanoid(), level: 'Medium', completed: false, title: '',
+        body: '', state: 'create'}
         return {
             todos: [newTodo, ...state.todos],
             isAddingDisabled: true
@@ -41,6 +45,7 @@ export const useTodos = create<Todos>()(set => ({
         const index = state.todos.indexOf(oldTodo)
         const newTodos = [...state.todos]
         newTodos.splice(index, 1, changedTodo)
+        newTodos.sort(compareNotes)
         return {
             todos: [...newTodos]
         }

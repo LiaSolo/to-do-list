@@ -1,0 +1,34 @@
+
+
+.Buttons {
+  box-sizing: border-box;
+  height: 35px;
+  padding: 8px 12px;
+  font-family: 'Source Sans Pro';
+  color: white;
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 19.2px;
+  gap: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 0%;
+  border: none;
+  cursor: pointer;
+}
+
+.Buttons:hover, .Buttons:focus {
+  outline: black solid 1px;
+}
+
+.Buttons:disabled {
+  background-color: #A5C9CA !important;
+  outline: none;
+  cursor: context-menu;
+}
+
+.btnIcons {
+  background-repeat: no-repeat;
+  background-position: center;
+}
