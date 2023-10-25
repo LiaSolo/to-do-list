@@ -1,39 +1,32 @@
-import styles from './Header.module.scss'
-import { FC } from 'react'
-import { useTodos } from '../../Store';
-import Buttons from '../Buttons/Buttons';
+import styles from "./Header.module.scss";
+import { FC } from "react";
+import { useTodos } from "../../store";
+import Button from "../Button/Button";
+import iconAdd from "../../assets/add.svg";
 
 const Header: FC = () => {
-    const createEmptyTodo = useTodos(s => s.createEmptyTodo)
-    const isAddingDisabled = useTodos(s => s.isAddingDisabled)
-    const handleAddNoteClick = () => {
-        createEmptyTodo()
-    }
+    const createEmptyTodo = useTodos((s) => s.createEmptyTodo);
+    const isAddingDisabled = useTodos((s) => s.isAddingDisabled);
     return (
         <div className={styles.Header}>
-          <span>Yet Another Todo List</span>
-          <form  action='' method='get'>
-            <input 
-              type='search'
-              placeholder='Search me Daddy...'
-              disabled={isAddingDisabled}
-              className={styles.searchBox}>
-          </input>
-          </form>
-          
-          <Buttons 
-            isDisabled={isAddingDisabled}
-            hasPadding='0px'
-            btnWidth='35px' 
-            hasIcon={true} 
-            icon='add' 
-            iconSize='24px' 
-            text='' 
-            btnColor='#395B64'
-            onClick={handleAddNoteClick}
-          />
-        </div>
-    )
-}
+            <span>Yet Another Todo List</span>
+            <input
+                type="search"
+                placeholder="Search me Daddy..."
+                disabled={isAddingDisabled}
+                className={styles.searchBox}
+            ></input>
 
-export default Header
+            <Button
+                isDisabled={isAddingDisabled}
+                hasIcon={true}
+                icon={iconAdd}
+                text="CREATE"
+                btnColor="Primary"
+                onClick={createEmptyTodo}
+            />
+        </div>
+    );
+};
+
+export default Header;

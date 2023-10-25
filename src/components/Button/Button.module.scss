@@ -1,8 +1,7 @@
 
 
-.Buttons {
+.Button {
   box-sizing: border-box;
-  height: 35px;
   padding: 8px 12px;
   font-family: 'Source Sans Pro';
   color: white;
@@ -18,17 +17,12 @@
   cursor: pointer;
 }
 
-.Buttons:hover, .Buttons:focus {
+.Button:hover, .Button:focus {
   outline: black solid 1px;
 }
 
-.Buttons:disabled {
+.Button:disabled {
   background-color: #A5C9CA !important;
   outline: none;
   cursor: context-menu;
-}
-
-.btnIcons {
-  background-repeat: no-repeat;
-  background-position: center;
 }

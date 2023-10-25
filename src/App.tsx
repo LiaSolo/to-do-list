@@ -5,8 +5,6 @@ import "@fontsource/source-sans-pro"
 import "@fontsource/lora/700.css"
 
 function App() {
-
-  
   return (
     <div className={styles.App}>
       <Header />

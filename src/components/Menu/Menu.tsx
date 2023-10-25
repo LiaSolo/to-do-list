@@ -1,8 +1,11 @@
-import menuStyles from './Menu.module.scss'
-import { FC } from 'react'
-import { TodoItem } from '../../TodoItem'
-import { useTodos } from '../../Store'
-import Buttons from '../Buttons/Buttons'
+import menuStyles from "./Menu.module.scss";
+import { FC } from "react";
+import { TodoItem } from "../../TodoItem";
+import { useTodos } from "../../store";
+import Button from "../Button/Button";
+import iconEdit from "../../assets/edit.svg";
+import iconDelete from "../../assets/delete.svg";
+import iconComplete from "../../assets/done.svg";
 
 interface Props {
     item: TodoItem;
@@ -10,71 +13,56 @@ interface Props {
 }
 
 const Menu: FC<Props> = ({ item, setShowMenu }) => {
-    const saveChanges = useTodos(state => state.saveChanges)
-    const deleteTodo = useTodos(state => state.deleteTodo)
+    const replaceTodo = useTodos((state) => state.replaceTodo);
+    const editState = useTodos((state) => state.editState);
+    const deleteTodo = useTodos((state) => state.deleteTodo);
 
     const handleCompleteClick = () => {
         const completedItem = {
-            id: item.id,
-            level: item.level,
+            ...item,
             completed: true,
-            title: item.title,
-            body: item.body,
-            state: 'default'
-        }
-        setShowMenu(false)
-        saveChanges(completedItem)
-    }
+        };
+        setShowMenu(false);
+        replaceTodo(completedItem);
+    };
 
     const handleEditClick = () => {
-        const unsavedItem = {
-            id: item.id,
-            level: item.level,
-            completed: item.completed,
-            title: item.title,
-            body: item.body,
-            state: 'edit'
-        }
-        setShowMenu(false)
-        saveChanges(unsavedItem)
-    }
+        setShowMenu(false);
+        editState(item, 'edit')
+    };
 
     const handleDeleteClick = () => {
-        setShowMenu(false)
-        deleteTodo(item)
-    }    
+        setShowMenu(false);
+        deleteTodo(item);
+    };
 
-    return(
+    return (
         <div className={menuStyles.Menu}>
             <div className={menuStyles.btnsContainer}>
-                <Buttons 
-                    btnColor='#73A584' 
-                    hasIcon={true} 
-                    icon='done'
-                    iconSize='16px' 
-                    text='COMPLETE'
+                <Button
+                    btnColor="Success"
+                    hasIcon={true}
+                    icon={iconComplete}
+                    text="COMPLETE"
                     onClick={handleCompleteClick}
                 />
-                <Buttons 
-                    btnColor='#395B64' 
-                    hasIcon={true} 
-                    icon='edit'
-                    iconSize='16px' 
-                    text='EDIT'
+                <Button
+                    btnColor="Primary"
+                    hasIcon={true}
+                    icon={iconEdit}
+                    text="EDIT"
                     onClick={handleEditClick}
                 />
-                <Buttons 
-                    btnColor='#D57575' 
-                    hasIcon={true} 
-                    icon='delete'
-                    iconSize='16px' 
-                    text='DELETE'
+                <Button
+                    btnColor="Error"
+                    hasIcon={true}
+                    icon={iconDelete}
+                    text="DELETE"
                     onClick={handleDeleteClick}
                 />
             </div>
-            
         </div>
-    )
-}
+    );
+};
 
-export default Menu
+export default Menu;

@@ -1,65 +1,53 @@
-import styles from './selectLevels.module.scss'
-import { FC } from 'react'
-import { useState } from 'react'
+import styles from "./selectLevels.module.scss";
+import { FC } from "react";
+import { useState } from "react";
+import { TodoLevel, levelByImportance } from "../../constants";
 
 interface Props {
-    selectedLevel: string;
-    setLevel: (newOption: string) => void;
+    selectedLevel: TodoLevel;
+    setLevel: (newOption: TodoLevel) => void;
 }
 
-const SelectLevels: FC<Props> = ({selectedLevel, setLevel}) => {
-
+const SelectLevels: FC<Props> = ({ selectedLevel, setLevel }) => {
     const [isShowOptions, setShowOptions] = useState(false);
+
     const handleShowOptionsClick = () => {
         setShowOptions(!isShowOptions);
-    }
+    };
 
-    const handleLowSelected = () => {
+    const handleLevelChange = (newLevel: TodoLevel) => {
         setShowOptions(!isShowOptions);
-        setLevel('LOW');
-    }
-    const handleMediumSelected = () => {
-        setShowOptions(!isShowOptions);
-        setLevel('MEDIUM');
-    }
-    const handleCriticalSelected = () => {
-        setShowOptions(!isShowOptions);
-        setLevel('CRITICAL');
-    }
+        setLevel(newLevel);
+    };
 
     const styleOptions = (lvl: string) => {
-        return(
-            {backgroundColor: selectedLevel === lvl ? '#395B64':'',
-            color: selectedLevel === lvl ? 'white':'black'}
-        )    
-    }
-    
+        return {
+            backgroundColor: selectedLevel === lvl ? "#395B64" : "",
+            color: selectedLevel === lvl ? "white" : "black",
+        };
+    };
+
     return (
         <div className={styles.SelectLevels}>
             <div className={styles.dropDown} onClick={handleShowOptionsClick}>
                 {selectedLevel}
-                <div className={styles.iconSelect}></div>    
+                <div className={styles.iconSelect}></div>
             </div>
-            {isShowOptions?
+            {isShowOptions && (
                 <div className={styles.dropDownOptionsContainer}>
-                    <div className={styles.dropDownOptions} 
-                        style={styleOptions('CRITICAL')}
-                        onClick={handleCriticalSelected}>
-                            Critical
-                    </div>
-                    <div className={styles.dropDownOptions}
-                        style={styleOptions('MEDIUM')}
-                        onClick={handleMediumSelected}>
-                            Medium
-                    </div>
-                    <div className={styles.dropDownOptions}
-                        style={styleOptions('LOW')}
-                        onClick={handleLowSelected}>
-                            Low
-                    </div>
-                </div> : ''} 
+                    {levelByImportance.map((lvl) => (
+                        <div
+                            className={styles.dropDownOptions}
+                            style={styleOptions(lvl)}
+                            onClick={() => handleLevelChange(lvl)}
+                        >
+                            {lvl}
+                        </div>
+                    ))}
+                </div>
+            )}
         </div>
-    )
-}
+    );
+};
 
-export default SelectLevels
+export default SelectLevels;
