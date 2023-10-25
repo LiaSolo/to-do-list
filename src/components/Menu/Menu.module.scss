@@ -2,13 +2,8 @@
 
 .Menu {
     box-sizing: border-box;
-    height: 226px;
-    width: 573px;
-    padding: 32px;
-    margin: 16px;
     position: absolute;
-    top: -16px;
-    left: -16px;
+    inset: 0px;
     background: rgba(251, 253, 252, 0.75);
     z-index: 1;
     display: flex;
@@ -19,8 +14,6 @@
 }
   
 .btnsContainer {
-    height: 35px;
-    width: 334px;
     display: flex;
     gap: 16px;
 }

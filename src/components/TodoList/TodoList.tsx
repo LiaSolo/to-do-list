@@ -1,6 +1,6 @@
 import styles from './TodoList.module.scss'
 import { FC } from 'react'
-import { useTodos } from '../../Store'
+import { useTodos } from '../../store'
 import Note from '../Note/Note'
 
 const TodoList: FC = () => {

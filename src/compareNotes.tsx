@@ -1,30 +1,15 @@
 import { TodoItem } from "./TodoItem";
+import { levelByImportance } from "./constants";
 
-
-function preCompare(elem:TodoItem) {
-    const completed = elem.completed
-    const level = elem.level
-    if (completed === false && level === 'CRITICAL') {
-        return 10
+export function compareNotes(elem1: TodoItem, elem2: TodoItem) {
+    if (elem1.completed === elem2.completed) {
+        return (
+            levelByImportance.indexOf(elem2.level) -
+            levelByImportance.indexOf(elem1.level)
+        );
+    } else if (elem1.completed) {
+        return 10;
+    } else {
+        return -10;
     }
-    if (completed === false && level === 'MEDIUM') {
-        return 8
-    }
-    if (completed === false && level === 'LOW') {
-        return 6
-    }
-    if (completed === true && level === 'CRITICAL') {
-        return -6
-    }
-    if (completed === true && level === 'MEDIUM') {
-        return -8
-    }
-    if (completed === true && level === 'LOW') {
-        return -10
-    }
-    return 0
-}
-
-export function compareNotes(elem1:TodoItem, elem2: TodoItem) {
-    return preCompare(elem2) - preCompare(elem1)
 }

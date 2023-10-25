@@ -3,11 +3,12 @@ import { FC } from 'react'
 import classNames from 'classnames'
 import { TodoItem } from '../../TodoItem'
 import SelectLevels from '../selectLevels/selectLevels'
+import { TodoLevel } from '../../constants'
 
 interface Props {
     item: TodoItem;
-    selectedLevel: string;
-    setLevel: (newOption: string) => void;
+    selectedLevel: TodoLevel;
+    setLevel: (newOption: TodoLevel) => void;
 }
 
 const Level: FC<Props> = ({item, selectedLevel, setLevel}) => {
