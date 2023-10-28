@@ -12,8 +12,6 @@ import { TodoState } from "./constants";
 interface Todos {
     todos: TodoItem[];
     newTodoId: string | undefined;
-    isAddingDisabled: boolean;
-    setAddingDisabled: (newValue: boolean) => void;
     createEmptyTodo: () => void;
     replaceTodo: (changedTodo: TodoItem, stateTodo: TodoState) => void;
     deleteTodo: (todo: TodoItem) => void;
@@ -38,13 +36,7 @@ export const useTodos = create<Todos>()((set) => ({
                 searchText: newText,
             };
         }),
-    isAddingDisabled: false,
-    setAddingDisabled: (newValue: boolean) =>
-        set(() => {
-            return {
-                isAddingDisabled: newValue,
-            };
-        }),
+
     createEmptyTodo: () =>
         set((state) => {
             getAllTodos();

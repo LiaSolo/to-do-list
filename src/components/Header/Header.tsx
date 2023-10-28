@@ -5,13 +5,13 @@ import Button from "../Button/Button";
 import iconAdd from "../../assets/add.svg";
 
 const Header: FC = () => {
-    const searchText = useTodos((state) => state.searchText);
-    const setSearhText = useTodos((state) => state.setSearchText);
-    const createEmptyTodo = useTodos((s) => s.createEmptyTodo);
-    const isAddingDisabled = useTodos((s) => s.isAddingDisabled);
+    const { searchText, setSearchText, createEmptyTodo, newTodoId } = useTodos(
+        (state) => state
+    );
+    const isAddingDisabled = newTodoId === undefined ? false : true
 
     const handleChangeSearchText = (event: ChangeEvent<HTMLInputElement>) => {
-        setSearhText(event.target.value);
+        setSearchText(event.target.value);
     };
     return (
         <div className={styles.Header}>
