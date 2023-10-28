@@ -16,7 +16,6 @@ interface Props {
 const Note: FC<Props> = ({ item }) => {
     const newTodoId = useTodos((state) => state.newTodoId);
     const replaceTodo = useTodos((state) => state.replaceTodo);
-    const setAddingDisabled = useTodos((state) => state.setAddingDisabled);
 
     const [textBody, setTextBody] = useState(item.body);
     const [isShowMenu, setShowMenu] = useState(false);
@@ -45,7 +44,6 @@ const Note: FC<Props> = ({ item }) => {
             body: textBody,
         };
         replaceTodo(savedItem, state);
-        setAddingDisabled(false);
         setState("default");
     };
 

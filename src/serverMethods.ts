@@ -5,7 +5,6 @@ export async function getAllTodos() {
     const response = await fetch(SERVER_URL);
     if (!response.ok) throw new Error(response.statusText);
     const json = await response.json();
-    console.log(json);
     return json as TodoItem[];
 }
 
@@ -19,7 +18,6 @@ export async function addNewTodo(newItem: TodoItem) {
     });
     if (!response.ok) throw new Error(response.statusText);
     const json = await response.json();
-    console.log(json);
     return json as TodoItem;
 }
 
@@ -31,8 +29,6 @@ export async function deleteTodo(idItem: string) {
         },
     });
     if (!response.ok) throw new Error(response.statusText);
-    const json = await response.json();
-    console.log(json);
 }
 
 export async function updateTodo(changedTodo: TodoItem) {
@@ -45,6 +41,5 @@ export async function updateTodo(changedTodo: TodoItem) {
     });
     if (!response.ok) throw new Error(response.statusText);
     const json = await response.json();
-    console.log(json);
     return json as TodoItem;
 }
