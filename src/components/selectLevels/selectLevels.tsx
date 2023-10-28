@@ -31,12 +31,13 @@ const SelectLevels: FC<Props> = ({ selectedLevel, setLevel }) => {
         <div className={styles.SelectLevels}>
             <div className={styles.dropDown} onClick={handleShowOptionsClick}>
                 {selectedLevel}
-                <div className={styles.iconSelect}></div>
+                <div className={styles.iconSelect} />
             </div>
             {isShowOptions && (
                 <div className={styles.dropDownOptionsContainer}>
                     {levelByImportance.map((lvl) => (
                         <div
+                            key={lvl}
                             className={styles.dropDownOptions}
                             style={styleOptions(lvl)}
                             onClick={() => handleLevelChange(lvl)}

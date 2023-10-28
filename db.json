@@ -1,18 +1,25 @@
 {
-    "todos": [
-      {
-        "id": "1",
-        "header": "Покушать",
-        "text": "Хочу вкусно покушать",
-        "level": "LOW",
-        "completed": true
-      },
-      {
-        "id": "2",
-        "header": "Формалки лекция",
-        "text": "Списать к чертям собачьим",
-        "level": "CRITICAL",
-        "completed": false
-      }
-    ]
-  }
+  "todos": [
+    {
+      "id": 1,
+      "title": "Покушать",
+      "body": "Хочу вкусно покушать",
+      "level": "LOW",
+      "completed": true
+    },
+    {
+      "id": 2,
+      "title": "Формалки лекция",
+      "body": "Списать к чертям собачьим",
+      "level": "CRITICAL",
+      "completed": true
+    },
+    {
+      "id": "Crm6U9L3da8OsM-XU0PmN",
+      "level": "MEDIUM",
+      "completed": false,
+      "title": "цуыческаепмиротл",
+      "body": "цуквеапнгрошщлздхэжБьдтлбиоьрмтспаичвяыФпчварспелироштлдь"
+    }
+  ]
+}

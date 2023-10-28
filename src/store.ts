@@ -1,31 +1,43 @@
 import { create } from "zustand";
 import { nanoid } from "nanoid";
 import { TodoItem } from "./TodoItem";
-import { compareNotes } from "./compareNotes";
+import {
+    addNewTodo,
+    deleteTodo,
+    getAllTodos,
+    updateTodo,
+} from "./serverMethods";
 import { TodoState } from "./constants";
 
 interface Todos {
     todos: TodoItem[];
+    newTodoId: string | undefined;
     isAddingDisabled: boolean;
     setAddingDisabled: (newValue: boolean) => void;
     createEmptyTodo: () => void;
-    addTodo: (newItem: TodoItem) => void;
-    replaceTodo: (changedTodo: TodoItem) => void;
+    replaceTodo: (changedTodo: TodoItem, stateTodo: TodoState) => void;
     deleteTodo: (todo: TodoItem) => void;
-    editState: (item: TodoItem, newState: TodoState) => void
+    searchText: string;
+    setSearchText: (newText: string) => void;
+    fetchTodos: () => void;
 }
 
 export const useTodos = create<Todos>()((set) => ({
-    todos: [
-        {
-            id: "1",
-            level: "MEDIUM",
-            completed: false,
-            title: "Title123",
-            body: "Body123",
-            state: "default",
-        },
-    ],
+    todos: [],
+    newTodoId: undefined,
+    searchText: "",
+    fetchTodos: async () => {
+        const response = await getAllTodos();
+        set({
+            todos: response,
+        });
+    },
+    setSearchText: (newText: string) =>
+        set(() => {
+            return {
+                searchText: newText,
+            };
+        }),
     isAddingDisabled: false,
     setAddingDisabled: (newValue: boolean) =>
         set(() => {
@@ -35,59 +47,43 @@ export const useTodos = create<Todos>()((set) => ({
         }),
     createEmptyTodo: () =>
         set((state) => {
+            getAllTodos();
             const newTodo: TodoItem = {
                 id: nanoid(),
                 level: "MEDIUM",
                 completed: false,
                 title: "",
                 body: "",
-                state: "create",
             };
+
             return {
+                newTodoId: newTodo.id,
+                searchText: "",
                 todos: [newTodo, ...state.todos],
                 isAddingDisabled: true,
             };
         }),
-    addTodo: (newItem: TodoItem) =>
-        set((state) => {
-            return {
-                // отправка на сервер
-            };
-        }),
 
-    editState: (item: TodoItem, newState: TodoState) => set( state => {
-        const index = state.todos.indexOf(item);
-        const newItem: TodoItem = {
-            id: item.id,
-            level: item.level,
-            completed: item.completed,
-            title: item.title,
-            body: item.body,
-            state: newState,
-        }
-        const newTodos = [...state.todos];
-            newTodos.splice(index, 1, newItem);
-            newTodos.sort(compareNotes);
-        return {
-                todos: [...newTodos],
-            };
-    }),
-    replaceTodo: (changedTodo: TodoItem) =>
+    replaceTodo: async (changedTodo: TodoItem, stateTodo: TodoState) => {
+        const response = await (stateTodo === "create"
+            ? addNewTodo(changedTodo)
+            : updateTodo(changedTodo));
+
         set((state) => {
-            const oldTodo = state.todos.filter(
-                (item) => item.id === changedTodo.id
-            )[0];
-            const index = state.todos.indexOf(oldTodo);
-            const newTodos = [...state.todos];
-            newTodos.splice(index, 1, changedTodo);
-            newTodos.sort(compareNotes);
+            const newTodos = state.todos.map((item) =>
+                item.id === response.id ? response : item
+            );
+
             return {
-                todos: [...newTodos],
+                newTodoId: stateTodo === "create" ? undefined : state.newTodoId,
+                todos: newTodos,
             };
-        }),
+        });
+    },
     deleteTodo: (todo: TodoItem) =>
         set((state) => {
             const newTodos = state.todos.filter((item) => item.id !== todo.id);
+            deleteTodo(todo.id);
             return {
                 todos: [...newTodos],
             };

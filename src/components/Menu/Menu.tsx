@@ -6,15 +6,16 @@ import Button from "../Button/Button";
 import iconEdit from "../../assets/edit.svg";
 import iconDelete from "../../assets/delete.svg";
 import iconComplete from "../../assets/done.svg";
+import { TodoState } from "../../constants";
 
 interface Props {
     item: TodoItem;
     setShowMenu: (newValue: boolean) => void;
+    setState: (newState: TodoState) => void;
 }
 
-const Menu: FC<Props> = ({ item, setShowMenu }) => {
+const Menu: FC<Props> = ({ item, setShowMenu, setState }) => {
     const replaceTodo = useTodos((state) => state.replaceTodo);
-    const editState = useTodos((state) => state.editState);
     const deleteTodo = useTodos((state) => state.deleteTodo);
 
     const handleCompleteClick = () => {
@@ -23,12 +24,12 @@ const Menu: FC<Props> = ({ item, setShowMenu }) => {
             completed: true,
         };
         setShowMenu(false);
-        replaceTodo(completedItem);
+        replaceTodo(completedItem, "default");
     };
 
     const handleEditClick = () => {
         setShowMenu(false);
-        editState(item, 'edit')
+        setState("edit");
     };
 
     const handleDeleteClick = () => {
