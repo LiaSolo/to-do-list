@@ -7,23 +7,26 @@ import Menu from "../Menu/Menu";
 import { useTodos } from "../../store";
 import Button from "../Button/Button";
 import Level from "../Level/Level";
-import { TodoLevel } from "../../constants";
+import { TodoLevel, TodoState } from "../../constants";
 
 interface Props {
     item: TodoItem;
 }
 
 const Note: FC<Props> = ({ item }) => {
-    const [textBody, setTextBody] = useState(item.body);
-    const [isShowMenu, setShowMenu] = useState(false);
-    const [selectedLevel, setLevel] = useState<TodoLevel>("MEDIUM");
-    const [textTitle, setTextTitle] = useState(item.title);
-
-    const saveChanges = useTodos((state) => state.replaceTodo);
-    const addTodo = useTodos((state) => state.addTodo);
+    const newTodoId = useTodos((state) => state.newTodoId);
+    const replaceTodo = useTodos((state) => state.replaceTodo);
     const setAddingDisabled = useTodos((state) => state.setAddingDisabled);
 
-    const isSaved = item.state === "default" ? true : false;
+    const [textBody, setTextBody] = useState(item.body);
+    const [isShowMenu, setShowMenu] = useState(false);
+    const [state, setState] = useState<TodoState>(
+        newTodoId === item.id ? "create" : "default"
+    );
+    const [selectedLevel, setLevel] = useState<TodoLevel>(item.level);
+    const [textTitle, setTextTitle] = useState(item.title);
+
+    const isSaved = state === "default" ? true : false;
 
     const handleChangeTitle = (event: ChangeEvent<HTMLInputElement>) => {
         setTextTitle(event.target.value);
@@ -40,14 +43,10 @@ const Note: FC<Props> = ({ item }) => {
             completed: false,
             title: textTitle,
             body: textBody,
-            state: "default",
         };
-        if (savedItem.state === "create") {
-            addTodo(savedItem);
-        } else {
-            saveChanges(savedItem);
-            setAddingDisabled(false);
-        }
+        replaceTodo(savedItem, state);
+        setAddingDisabled(false);
+        setState("default");
     };
 
     const handleMenuClick = () => {
@@ -62,7 +61,15 @@ const Note: FC<Props> = ({ item }) => {
                 item.completed ? styles.completed : ""
             )}
         >
-            {isShowMenu ? <Menu item={item} setShowMenu={setShowMenu} /> : ""}
+            {isShowMenu ? (
+                <Menu
+                    item={item}
+                    setShowMenu={setShowMenu}
+                    setState={setState}
+                />
+            ) : (
+                ""
+            )}
             {isSaved && !item.completed && (
                 <div
                     className={
@@ -71,7 +78,7 @@ const Note: FC<Props> = ({ item }) => {
                             : classNames(styles.menuIcons, styles.dots)
                     }
                     onClick={handleMenuClick}
-                ></div>
+                />
             )}
             <div className={styles.header}>
                 {!isSaved && (
@@ -83,6 +90,7 @@ const Note: FC<Props> = ({ item }) => {
                 )}
                 <Level
                     item={item}
+                    state={state}
                     selectedLevel={selectedLevel}
                     setLevel={setLevel}
                 />
@@ -102,7 +110,7 @@ const Note: FC<Props> = ({ item }) => {
                         placeholder="Title"
                         disabled={isSaved}
                         className={styles.inputTitle}
-                    ></input>
+                    />
                 </div>
             </div>
 
@@ -118,7 +126,7 @@ const Note: FC<Props> = ({ item }) => {
                     placeholder="Body"
                     className={styles.textareaBody}
                     disabled={isSaved}
-                ></textarea>
+                />
             </div>
         </div>
     );

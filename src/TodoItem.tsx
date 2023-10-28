@@ -1,4 +1,4 @@
-import { TodoLevel, TodoState } from "./constants";
+import { TodoLevel } from "./constants";
 
 export interface TodoItem {
     id: string;
@@ -6,5 +6,4 @@ export interface TodoItem {
     title: string;
     body: string;
     completed: boolean;
-    state: TodoState;
 }

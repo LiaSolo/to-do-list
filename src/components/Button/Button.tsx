@@ -26,7 +26,7 @@ const Button: FC<Props> = ({
             className={classNames(styles.Button)}
             disabled={isDisabled}
             style={{
-                backgroundColor: mapVariantToColor[btnColor]
+                backgroundColor: mapVariantToColor[btnColor],
             }}
             onClick={onClick}
         >

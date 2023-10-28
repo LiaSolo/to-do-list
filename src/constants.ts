@@ -1,4 +1,4 @@
-
+export const SERVER_URL = "http://localhost:3000/todos";
 
 export const mapVariantToColor = {
     Primary: "#395B64",
@@ -7,8 +7,8 @@ export const mapVariantToColor = {
     Success: "#73A584",
 };
 
-export const levelByImportance = ["LOW", "MEDIUM", "CRITICAL"] as const
+export const levelByImportance = ["LOW", "MEDIUM", "CRITICAL"] as const;
 export type TodoLevel = (typeof levelByImportance)[number];
 
-const states = ['default', 'edit', 'create']
-export type TodoState = (typeof states)[number]
+const states = ["default", "edit", "create"] as const;
+export type TodoState = (typeof states)[number];
